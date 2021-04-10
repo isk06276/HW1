@@ -77,6 +77,8 @@ timer_ticks (void)
 }
 
 /* Returns the number of timer ticks elapsed since THEN, which
+         sub-tick timing. */
+      real_time_delay (num, denom); 
    should be a value once returned by timer_ticks(). */
 int64_t
 timer_elapsed (int64_t then) 
@@ -233,8 +235,6 @@ real_time_sleep (int64_t num, int32_t denom)
   else 
     {
       /* Otherwise, use a busy-wait loop for more accurate
-         sub-tick timing. */
-      real_time_delay (num, denom); 
     }
 }
 
