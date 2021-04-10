@@ -590,11 +590,16 @@ allocate_tid (void)
    Used by switch.S, which can't figure it out on its own. */
 uint32_t thread_stack_ofs = offsetof (struct thread, stack);
 
+/* Pintos HW1/ awake_tick을 반환해주는 함수 */
 int64_t get_awake_tick(void){
 	return awake_tick();
 }
 
-int64_t set_awake_tick(){
-	
+/* Pintos HW1/ 입력된 tick 값과 비교해 awake_tick을 설정하는 함수 */
+void set_awake_tick(int64_t tick){
+	if(awake_tick > tick)
+	{
+	    awake_tick = tick;
+	}
 }
 
