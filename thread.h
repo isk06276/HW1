@@ -140,3 +140,11 @@ int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
 
 #endif /* threads/thread.h */
+
+/*pintos alarm clock*/
+void thread_sleep(int64_t tick);
+void thread_awake(int64_t tick);
+int64_t get_next_awake(void);
+void set_next_awake(int64_t tick);
+
+
