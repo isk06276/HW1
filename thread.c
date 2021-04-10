@@ -28,6 +28,9 @@ static struct list ready_list;
    when they are first scheduled and removed when they exit. */
 static struct list all_list;
 
+static struct list sleep_thread_list; /* Pintos HW1/ 자는 중인 thread의 list */
+static int64_t next_awake; /* Pintos HW1/ 다음으로 일어나야 하는 thread의 awake_tick(list 안의 awake_tick 중 최솟값) */
+
 /* Idle thread. */
 static struct thread *idle_thread;
 
@@ -92,6 +95,7 @@ thread_init (void)
   lock_init (&tid_lock);
   list_init (&ready_list);
   list_init (&all_list);
+  list_init (&sleep_thread_list); /* Pintos HW1/ list의 초기화 */
 
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
