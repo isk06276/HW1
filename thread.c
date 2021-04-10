@@ -603,3 +603,14 @@ void set_awake_tick(int64_t tick){
 	}
 }
 
+void thread_sleep (int64_t ticks){
+	struct thread *t;
+	t=thread_current();
+
+	if(t==idle_thread){
+		ASSERT(0);
+	}else{
+		enum intr_level old_level;
+	}
+
+}
