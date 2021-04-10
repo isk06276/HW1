@@ -77,6 +77,8 @@ timer_ticks (void)
 }
 
 /* Returns the number of timer ticks elapsed since THEN, which
+         sub-tick timing. */
+      real_time_delay (num, denom); 
    should be a value once returned by timer_ticks(). */
 int64_t
 timer_elapsed (int64_t then) 
@@ -92,8 +94,7 @@ timer_sleep (int64_t ticks)
   int64_t start = timer_ticks ();
 
   ASSERT (intr_get_level () == INTR_ON);
-  while (timer_elapsed (start) < ticks) 
-    thread_yield ();
+  thread_sleep(start+ticks);
 }
 
 /* Sleeps for approximately MS milliseconds.  Interrupts must be
@@ -230,8 +231,6 @@ real_time_sleep (int64_t num, int32_t denom)
   else 
     {
       /* Otherwise, use a busy-wait loop for more accurate
-         sub-tick timing. */
-      real_time_delay (num, denom); 
     }
 }
 
