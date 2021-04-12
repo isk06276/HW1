@@ -603,19 +603,20 @@ void set_next_awake(int64_t tick){
 	}
 }
 
+/* Pintos HW1/ thread를 재우는 함수 */
 void thread_sleep (int64_t tick){
 	struct thread *t = thread_current();
 
 	if(t==idle_thread){
-		ASSERT(0);
+		ASSERT(0);        //thread의 상태가 idle일때는 thread를 재우지 않는다. 
 	}
 
-	enum intr_level previous_level = intr_disable();
+	enum intr_level previous_level = intr_disable();    //thread의 interrupt 상태를 저장하고 interrupt를 받지 않게 만든다. 
 	t -> awake_tick = tick;
-	set_next_awake(t -> awake_tick);
-	list_push_back(&sleep_thread_list, &t -> elem);
-	thread_block();
-	intr_set_level(previous_level);
+	set_next_awake(t -> awake_tick);    //next_awake 값을 다시 설정한다. 
+	list_push_back(&sleep_thread_list, &t -> elem);    //thread를 sleep_thread_list에 넣는다. 
+	thread_block();    //thread를 block 상태로 만든다. 
+	intr_set_level(previous_level);    //interrupt 상태를 이전으로 돌려놓는다. 
 }
 
 void thread_awake(int64_t tick){

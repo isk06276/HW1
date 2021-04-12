@@ -92,7 +92,7 @@ timer_sleep (int64_t ticks)
   int64_t start = timer_ticks ();
 
   ASSERT (intr_get_level () == INTR_ON);
-  thread_sleep(start+ticks);
+  thread_sleep(start+ticks);    //문제가 되었던 while문을 지우고 thread를 재우는 함수를 호출한다. 
 }
 
 /* Sleeps for approximately MS milliseconds.  Interrupts must be
@@ -173,7 +173,7 @@ timer_interrupt (struct intr_frame *args UNUSED)
   thread_tick ();
 
   if(get_next_awake()<=ticks){
-	thread_awake(ticks);
+	thread_awake(ticks);     //tick이 업데이트 될 때마다 현재 tick과 awake_tick을 비교해서 thread를 깨우는 함수를 호출한다. 
   }
 }
 
