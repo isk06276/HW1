@@ -619,16 +619,6 @@ void thread_sleep (int64_t tick){
 }
 
 void thread_awake(int64_t tick){
-        next_awake=INT64_MAX;
-        struct list_elem *curr_thread=list_begin(&sleep_thread_list);
-        while(curr_thread!=list_tail(&sleep_thread_list)){
-                struct thread *t=list_entry(curr_thread, struct thread, elem);
-                if(tick>=t->awake_tick){
-                        curr_thread=list_remove(&t->elem);
-                        thread_unblock(t);
-                }else{
-                        curr_thread=list_next(curr_thread);
-                        set_next_awake(t->awake_tick);
-                }
-        }
+        /* awake the blocked thread
+	   however, we failed to make the working function*/
 }
